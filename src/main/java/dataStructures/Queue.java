@@ -15,16 +15,19 @@ public class Queue {
     public void enque(int data){
         Node NewNode = new Node(data);
         if (head == null){
-            head=NewNode;
             tail = NewNode;
+            head=tail;
             return;
         }
+        tail.next = NewNode;
         tail = NewNode;
-        NewNode.next = head;
-        head = NewNode;
     }
 
     public int deque(){
-        return tail.data;
+        int data = head.data;
+        head = head.next;
+        if (head == null)
+            tail = null;
+        return data;
     }
 }

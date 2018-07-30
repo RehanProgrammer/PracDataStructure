@@ -39,7 +39,30 @@ public class HashTable {
      }
   }
 
+  public String get(String key){
+       int index = getIndex(key);
+       HashEntry entries = hash[index];
+
+      if (entries!=null){
+          while (!entries.key.equals(key) && entries.next!=null){
+              entries = entries.next;
+          }
+          return entries.value;
+      }
+
+      return "There is no entry with that key";
+  }
   public int getIndex(String key){
        int hashCode = key.hashCode();
+       if (hashCode < 0)
+           hashCode = hashCode * -1;
+        System.out.println("hashcode= " + hashCode);
+       int index = hashCode % initialSize;
+      System.out.println("index= " + index);
+
+      if (key.equals("John Smith") || key.equals("Sandra Dee")){
+          index = 4;
+      }
+      return index;
   }
 }

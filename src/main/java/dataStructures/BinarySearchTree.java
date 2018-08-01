@@ -15,7 +15,7 @@ public class BinarySearchTree {
 
         public Node minNode (){
             if (left == null){
-                return this.left;
+                return this;
             }
             else {
                 return left.minNode();
@@ -24,6 +24,10 @@ public class BinarySearchTree {
         }
     }
     Node root;
+
+    public BinarySearchTree () {
+        root = null;
+    }
     public String find (int key){
 
         Node node = find (root , key);
@@ -47,7 +51,8 @@ public class BinarySearchTree {
         }
 
         public void insert (int key, String value){
-         root = insertItem(root , key ,value);
+
+        root = insertItem(root , key ,value);
         }
 
         public Node insertItem (Node node , int key, String value){
@@ -64,6 +69,44 @@ public class BinarySearchTree {
                     node.right = insertItem(node , key, value);
                 }
                 return node;
+        }
+
+        public void delete (int key){
+        deleteItem(root, key);
+        }
+
+        public Node deleteItem (Node node, int key){
+            if (node == null){
+                return null;
+            }
+            else if (key < node.key){
+                node.left = deleteItem(node , key);
+            }
+            else if (key > node.key){
+                node.right = deleteItem(node , key);
+            }
+            else{
+                if (node.left == null && node.right == null){
+                    node = null;
+                }
+                else if (node.right==null){
+                    node = node.left;
+                }
+                else if (node.left == null){
+                    node = node.right;
+                }
+                else{
+                    Node minNode = findMin_OnRight(node.right);
+                    node.key = minNode.key;
+                    node.value = minNode.value;
+                    node.right = deleteItem(node , key);
+                }
+            }
+          return node;
+        }
+
+        public Node findMin_OnRight (Node node){
+            return node.minNode();
         }
 
 

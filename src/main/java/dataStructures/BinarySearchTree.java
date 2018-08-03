@@ -40,12 +40,12 @@ public class BinarySearchTree {
             return node;
         }
         else if (node.key < key){
-            node = node.left;
-            find (node,key);
+            node = node.right;
+            return find (node,key);
         }
         else if (node.key > key){
-            node = node.right;
-            find (node,key);
+            node = node.left;
+            return find (node,key);
         }
         return null;
         }
@@ -53,20 +53,24 @@ public class BinarySearchTree {
         public void insert (int key, String value){
 
         root = insertItem(root , key ,value);
+
         }
 
         public Node insertItem (Node node , int key, String value){
              Node newNode = new Node(key, value);
                 if (node == null){
                     node = newNode;
+                    System.out.println(node.key);
                     return node;
                 }
 
-                if (key < node.key){
-                   node.left = insertItem(node , key, value);
+               else if (key < node.key){
+
+                   node.left = insertItem(node.left , key, value);
+
                    }
-                   else if (key > node.key){
-                    node.right = insertItem(node , key, value);
+                 else if (key > node.key){
+                    node.right = insertItem(node.right , key, value);
                 }
                 return node;
         }
